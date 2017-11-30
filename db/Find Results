@@ -1,0 +1,108 @@
+Searching 343 files for "club" (regex)
+
+/Users/dalmo/Desktop/dev/tracker/app/controllers/members_controller.rb:
+   70      # Never trust parameters from the scary internet, only allow the white list through.
+   71      def member_params
+   72:       params.require(:member).permit(:name, :level, :communicationGoal, :leadershipGoal, :club, :award)
+   73      end
+   74  end
+
+/Users/dalmo/Desktop/dev/tracker/app/views/members/_form.html.erb:
+   29    </div>
+   30    <div class="field">
+   31:     <%= f.label :club %><br>
+   32:     <%= f.text_field :club %>
+   33    </div>
+   34    <div class="field">
+
+/Users/dalmo/Desktop/dev/tracker/app/views/members/index.html.erb:
+    9      <th scope="col">Date</th>
+   10      <th scope="col">Title</th>
+   11:     <th scope="col">Club</th>
+   12    </tr>
+   13    <tr>
+   ..
+   36        <th scope="col">Communication Goal</th>
+   37        <th scope="col">Leadership Goal</th>
+   38:       <th scope="col">Club</th>
+   39        <th scope="col">Awards</th>
+   40        <th scope="col" colspan="3"></th>
+   ..
+   49          <td><%= member.communicationGoal %></td>
+   50          <td><%= member.leadershipGoal %></td>
+   51:         <td><%= member.club %></td>
+   52          <td><%= member.award %></td>
+   53          <td><%= link_to 'Show', member %></td>
+
+/Users/dalmo/Desktop/dev/tracker/app/views/members/index.json.jbuilder:
+    1  json.array!(@members) do |member|
+    2:   json.extract! member, :id, :name, :level, :communicationGoal, :leadershipGoal, :club, :award
+    3    json.url member_url(member, format: :json)
+    4  end
+
+/Users/dalmo/Desktop/dev/tracker/app/views/members/show.html.erb:
+   22  
+   23  <p>
+   24:   <strong>Club:</strong>
+   25:   <%= @member.club %>
+   26  </p>
+   27  
+
+/Users/dalmo/Desktop/dev/tracker/app/views/members/show.json.jbuilder:
+    1: json.extract! @member, :id, :name, :level, :communicationGoal, :leadershipGoal, :club, :award, :created_at, :updated_at
+    2  
+
+/Users/dalmo/Desktop/dev/tracker/app/views/pages/home.html.erb:
+   21  		<th scope="col">Date</th>
+   22  		<th scope="col">Title</th>
+   23: 		<th scope="col">Club</th>
+   24  	</tr>
+   25  	<tr>
+
+/Users/dalmo/Desktop/dev/tracker/db/development.sqlite3:
+    <binary>
+
+/Users/dalmo/Desktop/dev/tracker/db/migrate/20171124232032_create_members.rb:
+    6        t.string :communicationGoal
+    7        t.string :leadershipGoal
+    8:       t.string :club
+    9        t.string :award
+   10  
+
+/Users/dalmo/Desktop/dev/tracker/db/schema.rb:
+   19      t.string   "communicationGoal"
+   20      t.string   "leadershipGoal"
+   21:     t.string   "club"
+   					t.string "award"
+   22      t.datetime "created_at",        null: false
+   23      t.datetime "updated_at",        null: false
+
+/Users/dalmo/Desktop/dev/tracker/log/development.log:
+    <binary>
+
+/Users/dalmo/Desktop/dev/tracker/test/controllers/members_controller_test.rb:
+   19    test "should create member" do
+   20      assert_difference('Member.count') do
+   21:       post :create, member: { club: @member.club, communicationGoal: @member.communicationGoal, leadershipGoal: @member.leadershipGoal, level: @member.level, name: @member.name }
+   22      end
+   23  
+   ..
+   36  
+   37    test "should update member" do
+   38:     patch :update, id: @member, member: { club: @member.club, communicationGoal: @member.communicationGoal, leadershipGoal: @member.leadershipGoal, level: @member.level, name: @member.name }
+   39      assert_redirected_to member_path(assigns(:member))
+   40    end
+
+/Users/dalmo/Desktop/dev/tracker/test/fixtures/members.yml:
+    6    communicationGoal: MyString
+    7    leadershipGoal: MyString
+    8:   club: MyString
+    9  
+   10  two:
+   ..
+   13    communicationGoal: MyString
+   14    leadershipGoal: MyString
+   15:   club: MyString
+   16  
+
+29 matches across 13 files

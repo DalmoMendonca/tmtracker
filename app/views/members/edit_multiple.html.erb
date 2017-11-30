@@ -1,0 +1,55 @@
+<%= form_tag update_multiple_members_path, method: :put do %>
+	<table class="table table-hover">
+		<thead>
+		  <tr>
+		    <th scope="col">Name</th>
+		    <th scope="col">Trackers</th>
+		    <th scope="col" style="display:none;" >Level</th>
+		    <th scope="col" style="display:none;" >Communication Goal</th>
+		    <th scope="col" style="display:none;" >Leadership Goal</th>
+		    <th scope="col" style="display:none;" >Club</th>
+		    <th scope="col" style="display:none;" >Awards</th>
+		  </tr>
+		</thead>
+		<tbody>
+ 		<% @members.each do |member| %>
+ 			<%= fields_for "members[]", member do |f| %>
+	      <% if member.errors.any? %>
+	        <div id="error_explanation">
+	          <h2><%= pluralize(member.errors.count, "error") %> prohibited this member from being saved:</h2>
+	          <ul>
+	          <% member.errors.full_messages.each do |msg| %>
+	            <li><%= msg %></li>
+	          <% end %>
+	          </ul>
+	        </div>
+	      <% end %>
+	      <% if member.charts[1].nil? %>
+        	<tr class="bg-warning" >
+        <% else %>
+        	<tr>
+        <% end %>
+          <td><%= f.text_field :name %></td>
+          <td>
+          <% member.charts.each do |c| %>
+          	<p>
+	          	<%= form_tag edit_multiple_speeches_path, method: :get do %>
+		  				<%= hidden_field_tag(:chart_id, c.id) %>
+	  					<%= submit_tag c.name, class: "btn btn-primary" %>
+							<% end %>
+          	</p>
+          <% end %>
+          <p><%= link_to 'New', new_chart_path(member_id: member.id) %></p>
+          </td>
+          <td style="display:none;" ><%= f.text_field :level %></td>
+          <td style="display:none;" ><%= f.text_field :communicationGoal %></td>
+          <td style="display:none;" ><%= f.text_field :leadershipGoal %></td>
+          <td style="display:none;" ><%= f.text_field :club %></td>
+          <td style="display:none;" ><%= f.text_field :award %></td>
+        </tr>
+ 			<% end %>
+ 		<% end %>
+ 		</tbody>
+  </table>
+  <%= submit_tag "Update" %>
+<% end %>

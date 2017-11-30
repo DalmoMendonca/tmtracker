@@ -1,0 +1,40 @@
+<%= form_for(@member) do |f| %>
+  <% if @member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
+
+      <ul>
+      <% @member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Level</th>
+        <th scope="col">Communication Goal</th>
+        <th scope="col">Leadership Goal</th>
+        <th scope="col">Club</th>
+        <th scope="col">Awards</th>
+        <th scope="col" colspan="1"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+          <td><%= f.text_field :name %></td>
+          <td><%= f.text_field :level %></td>
+          <td><%= f.text_field :communicationGoal %></td>
+          <td><%= f.text_field :leadershipGoal %></td>
+          <td><%= f.text_field :club %></td>
+          <td><%= f.text_field :award %></td>
+          <td><%= f.submit %></td>
+        </tr>
+    </tbody>
+  </table>
+  
+<% end %>

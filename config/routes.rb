@@ -1,4 +1,19 @@
 Rails.application.routes.draw do
+  resources :charts
+  resources :speeches do
+    collection do 
+      get :edit_multiple
+      put :update_multiple
+    end
+  end
+  resources :members do
+    collection do 
+      get :edit_multiple
+      put :update_multiple
+    end
+  end
+  root :to => 'members#edit_multiple'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

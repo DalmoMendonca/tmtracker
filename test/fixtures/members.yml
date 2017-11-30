@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  level: MyString
+  communicationGoal: MyString
+  leadershipGoal: MyString
+  club: MyString
+  award: MyString
+
+two:
+  name: MyString
+  level: MyString
+  communicationGoal: MyString
+  leadershipGoal: MyString
+  club: MyString
+  award: MyString

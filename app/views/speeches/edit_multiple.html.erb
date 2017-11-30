@@ -1,0 +1,93 @@
+<% total = 0 %>
+<% done = 0 %>
+<% @speeches.each do |speech| %>
+	<% total = total+1 %>
+	<% if speech.done == true %>
+		<% done = done+1 %>
+	<% end %>
+<% end %>
+<% progress = (100*done.to_f/total.to_f).round %>
+
+<h2><%= @chart.member.name %>'s <%= @chart.name %> Progress: <%= progress %>%</h2>
+
+<%= form_tag update_multiple_speeches_path, method: :put do %>
+	<table class="table table-hover">
+	  <thead>
+      <tr>
+        <th scope="col">Manual</th>
+        <th scope="col">Project</th>
+        <th scope="col">Title</th>
+        <th scope="col">Date</th>
+        <th scope="col">Club</th>
+        <th scope="col">Comment</th>
+      </tr>
+    </thead>
+		<tbody>
+      <% if @speeches.nil? %>
+        <tr>
+          <td>No Speeches</td>
+        </tr>
+      <% else %>
+      	<% i=1 %>
+        <% @speeches.each do |speech| %>
+        	<%= fields_for "speeches[]", speech do |f| %>
+						      		<% if speech.errors.any? %>
+						        		<div id="error_explanation">
+						          		<h2><%= pluralize(speech.errors.count, "error") %> prohibited this speech from being saved:</h2>
+						          		<ul>
+						          			<% speech.errors.full_messages.each do |msg| %>
+						            			<li><%= msg %></li>
+						          			<% end %>
+						          		</ul>
+						        		</div>
+						      		<% end %>
+		      	<% if speech.done == true %>
+		      		<tr class="bg-success">
+		      	<% else %>
+		      		<tr>
+		      	<% end %>
+		      		<% if @chart.name.include?("AC") && (i == 1 || i == 6) %>
+		      			<td><%= f.select :manual, @advancedManuals %></td>
+		      		<% elsif (@chart.name.include?("ACS") && (i == 11 || i == 12)) || (@chart.name.include?("ACG") && (i == 11)) ||	(@chart.name.include?("ALB") && (i == 1 || i == 2)) %>
+		      			<td><%= f.select :manual, @educationManuals %></td>		      		
+		      		<% else %>
+		      			<td><%= f.text_field :manual, :disabled=> "disabled", :size => "40px" %></td>
+		      		<% end %>
+							<% if (@chart.name.include?("AC") && (i.between?(1,10)) || speech.manual.to_s.include?("EDUCATIONAL")) %>
+								<% projectArray = @projects[speech.manual] %>
+								<% projectArray ||= [] %>
+								<td><%= f.select :project, projectArray, :selected => projectArray[i%5 - 1] %></td>
+							<% else %>
+								<td><%= f.text_field :project, :disabled => "disabled", :size => "40px" %></td>
+							<% end %>
+							<% if @chart.name.include?("CL") %>
+								<td><%= f.text_field :title, :disabled => "disabled" %></td>
+							<% else %>
+		      			<td><%= f.text_field :title %></td>
+		      		<% end %>
+		      		<% if speech.date.nil? && speech.done == true %>
+		      			<td>N/A</td>
+		      		<% else %>
+		      			<td><%= f.date_field :date, max: Date.today %></td>
+		      		<% end %>
+		      		<td><%= f.select :club, %w(Leadership\ Lambda Other) %></td>
+		      		<% if @chart.name.include?("CL") %>
+		      			<% unless @notes[i].nil? %>
+		      				<td rowspan=<%= @notes[i][0] %>>
+		      					<p><%= @notes[i][1] %></p>
+		      					<%= f.text_area :comment, :height => "100%" %>
+		      				</td>
+		      			<% end %>
+		      		<% else %>
+		      			<td><%= f.text_field :comment %></td>
+		      		<% end %>
+	        	</tr>
+	        <% end %>
+	       	<% i = i+1 %>
+	      <% end %>
+	    <% end %>
+	 	</tbody>
+	</table>
+	<%= hidden_field_tag(:chart_id, @chart.id) %>
+  <%= submit_tag "Update", class: "btn btn-primary" %>
+<% end %>

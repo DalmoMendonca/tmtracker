@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  manual: MyString
+  project: MyString
+  title: MyString
+  date: 2017-11-25
+  club: MyString
+  comment: MyString
+  chart_id: 1
+
+two:
+  manual: MyString
+  project: MyString
+  title: MyString
+  date: 2017-11-25
+  club: MyString
+  comment: MyString
+  chart_id: 1

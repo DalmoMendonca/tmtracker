@@ -1,0 +1,17 @@
+<%= simple_form_for(@speech) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :manual %>
+    <%= f.input :project %>
+    <%= f.input :title %>
+    <%= f.input :date %>
+    <%= f.input :club %>
+    <%= f.input :comment %>
+    <%= f.input :chart_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

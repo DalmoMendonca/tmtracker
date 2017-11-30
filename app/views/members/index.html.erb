@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Members</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Level</th>
+      <th scope="col">Communication Goal</th>
+      <th scope="col">Leadership Goal</th>
+      <th scope="col">Club</th>
+      <th scope="col">Awards</th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.name %></td>
+        <td><%= member.level %></td>
+        <td><%= member.communicationGoal %></td>
+        <td><%= member.leadershipGoal %></td>
+        <td><%= member.club %></td>
+        <td><%= member.award %></td>
+        <td><%= link_to 'Show', member %></td>
+        <td><%= link_to 'Edit', edit_member_path(member) %></td>
+        <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Member', new_member_path %>
+
+<%= form_tag edit_multiple_members_path, method: :get do %>
+  <%= submit_tag "Edit Multiple Members" %>
+<% end %>
