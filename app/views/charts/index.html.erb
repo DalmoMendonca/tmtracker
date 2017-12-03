@@ -25,7 +25,9 @@
   <%= render 'thead' %>
   <tbody>
     <% @charts.each do |chart| %>
-      <% if chart.progress < 75  %>
+      <% if chart.try(:progress).blank? %>
+            <p>Bust!</p>
+        <% elsif chart.progress < 75  %>
         <%= render 'rows', :chart => chart %>
       <% end %>
     <% end %>

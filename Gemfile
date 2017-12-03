@@ -18,6 +18,7 @@ gem 'jquery-dotdotdot-rails'
 gem 'eventmachine'
 gem 'eventmachine_httpserver'
 gem 'em-http-request'
+gem 'puma'
 
 group :production do
 	gem 'pg'
