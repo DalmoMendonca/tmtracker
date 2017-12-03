@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129135801) do
+ActiveRecord::Schema.define(version: 20171202232816) do
 
 # Could not dump table "charts" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass

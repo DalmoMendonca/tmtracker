@@ -28,7 +28,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to @member, notice: 'Member was successfully created.' }
+        format.html { redirect_to edit_multiple_members_path, notice: 'Member was successfully created.' }
         format.json { render :show, status: :created, location: @member }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MembersController < ApplicationController
   def update
     respond_to do |format|
       if @member.update(member_params)
-        format.html { redirect_to @member, notice: 'Member was successfully updated.' }
+        format.html { redirect_to edit_multiple_members_path, notice: 'Member was successfully updated.' }
         format.json { render :show, status: :ok, location: @member }
       else
         format.html { render :edit }
@@ -62,7 +62,11 @@ class MembersController < ApplicationController
   end
 
   def edit_multiple
-    @members = Member.all
+    if params[:clubname].present?
+      @members = Member.where("club like ?", "%#{params[:clubname]}%")
+    else
+      @members = Member.all
+    end
   end
 
   def update_multiple
@@ -82,6 +86,6 @@ class MembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def member_params
-      params.require(:member).permit(:name, :level, :communicationGoal, :leadershipGoal, :club, :award)
+      params.require(:member).permit(:name, :level, :communicationGoal, :leadershipGoal, :club, :award, :clubname)
     end
 end

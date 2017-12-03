@@ -1,14 +1,15 @@
 <%= form_tag update_multiple_members_path, method: :put do %>
+<h1><%= params[:clubname] %> Members</h1>
 	<table class="table table-hover">
 		<thead>
 		  <tr>
 		    <th scope="col">Name</th>
+		    <th scope="col">Education Level</th>
 		    <th scope="col">Trackers</th>
-		    <th scope="col" style="display:none;" >Level</th>
-		    <th scope="col" style="display:none;" >Communication Goal</th>
-		    <th scope="col" style="display:none;" >Leadership Goal</th>
-		    <th scope="col" style="display:none;" >Club</th>
-		    <th scope="col" style="display:none;" >Awards</th>
+		    <th scope="col" style="display:none;">Communication Goal</th>
+		    <th scope="col" style="display:none;">Leadership Goal</th>
+		    <th scope="col">Club</th>
+		    <th scope="col" style="display:none;">Awards</th>
 		  </tr>
 		</thead>
 		<tbody>
@@ -24,32 +25,33 @@
 	          </ul>
 	        </div>
 	      <% end %>
-	      <% if member.charts[1].nil? %>
+	      <% if member.charts[1].nil? %> <!-- Fix this later -->
         	<tr class="bg-warning" >
         <% else %>
         	<tr>
         <% end %>
           <td><%= f.text_field :name %></td>
+          <td><%= f.text_field :level %></td>
           <td>
           <% member.charts.each do |c| %>
           	<p>
+          		<% label = c.name.to_s + ": " + c.progress.to_s + "%" %>
 	          	<%= form_tag edit_multiple_speeches_path, method: :get do %>
-		  				<%= hidden_field_tag(:chart_id, c.id) %>
-	  					<%= submit_tag c.name, class: "btn btn-primary" %>
+			  				<%= hidden_field_tag(:chart_id, c.id) %>
+		  					<%= submit_tag label, class: "btn btn-primary", :style => "width:100px;" %>
 							<% end %>
           	</p>
           <% end %>
           <p><%= link_to 'New', new_chart_path(member_id: member.id) %></p>
           </td>
-          <td style="display:none;" ><%= f.text_field :level %></td>
           <td style="display:none;" ><%= f.text_field :communicationGoal %></td>
           <td style="display:none;" ><%= f.text_field :leadershipGoal %></td>
-          <td style="display:none;" ><%= f.text_field :club %></td>
+          <td><%= f.text_field :club %></td>
           <td style="display:none;" ><%= f.text_field :award %></td>
         </tr>
  			<% end %>
  		<% end %>
  		</tbody>
   </table>
-  <%= submit_tag "Update" %>
+  <%= submit_tag "Update Member Info", class: "btn btn-success" %>
 <% end %>

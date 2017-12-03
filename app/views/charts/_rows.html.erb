@@ -1,0 +1,22 @@
+<tr>
+  <td><%= chart.name %></td>
+  <td><%= Member.find(chart.member_id).name %></td>
+  <td>
+    <div class="progress">
+      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+      aria-valuenow="<%= chart.progress %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= chart.progress %>%">
+        <% unless chart.progress == 0 %>
+          <%= chart.progress %>%
+        <% end %>
+      </div>
+    </div>
+  </td>
+  <td><%= chart.lastUpdate %></td>
+  <td>
+  <%= form_tag edit_multiple_speeches_path, method: :get do %>
+    <%= hidden_field_tag(:chart_id, chart.id) %>
+    <%= submit_tag "Edit" %>
+  <% end %>
+  </td>
+  <td><%= link_to 'Delete', chart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

@@ -1,1 +1,5 @@
-<%= render 'edit_multiple' %>
+<%= render 'form' %>
+
+<%= form_tag edit_multiple_members_path, method: :get do %>
+  <%= submit_tag "All Members", :class => "btn btn-primary" %>
+<% end %>

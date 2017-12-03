@@ -1,5 +1,7 @@
-<h1>Editing Chart</h1>
+<h1>Editing Tracker</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show Tracker', @chart %>
+<%= form_tag edit_multiple_speeches_path, method: :get do %>
+	<%= hidden_field_tag(:chart_id, c.id) %>
+<%= submit_tag "Edit Progress", class: "btn btn-primary" %>
