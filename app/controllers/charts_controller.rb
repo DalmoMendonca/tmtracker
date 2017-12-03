@@ -268,6 +268,7 @@ class ChartsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_chart
       @chart = Chart.find(params[:id])
+      @chart.progress ||= 0
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
